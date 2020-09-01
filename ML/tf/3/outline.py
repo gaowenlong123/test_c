@@ -24,7 +24,7 @@ import numpy as np
 
 # indices = tf.constant([[4],[3],[1],[7]])
 # updates = tf.constant([9,10,11,12])
-# shape = tf.constant([8])
+# shape = tf.constant([Con8])
 # print(shape)
 #
 # print(tf.scatter_nd(indices,updates,shape)) #地板必须为shape(这样默认都为0)　，　可以把要更新的先取出来，减去自己清零，然后更新，再想加

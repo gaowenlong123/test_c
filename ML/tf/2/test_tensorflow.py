@@ -140,7 +140,7 @@ from tensorflow.keras import layers
 
 
 
-# a = tf.random.normal([4,35,8])
+# a = tf.random.normal([4,35,Con8])
 # print(tf.gather(a,axis=0,indices=[2,3]))
 # print(tf.gather(a,axis=1,indices=[3,2,4,10]))
 #

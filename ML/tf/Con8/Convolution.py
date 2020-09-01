@@ -4,6 +4,28 @@ from tensorflow import keras
 
 tf.random.set_seed(2345)
 
+
+"""
+[bathsize , 宽 ， 高  ， 通道数 ]
+
+权值共享（就是卷积核在一张图片滑动时不变），滑动窗口，来达到一个参数量减少的情况
+bathsize : 几张图片
+
+"""
+
+"""
+输入 [4, 32, 32, 3]  四张 三通道的 32X 32 的图片
+
+确定卷积核的尺寸，进行所有通道的图片卷积，得到 [ 4, 32 , 32 ,  1 ]  (为什么是1，因为把所以通道信息都压缩到一个图片上了)
+同时也确定的核的数量，即就有多少个这样的操作   [ 4, 32 , 32 , 64 ]
+
+
+这个搞如果每个卷积核相同，那么每一个会不会也相同？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+
+在用strides=2进行减半 
+=>  [3 , 16 ,16 ,64 ]
+
+"""
 conv_layers = [
     layers.Conv2D(64, kernel_size=[3, 3], padding='same', activation=tf.nn.relu),
     layers.Conv2D(64, kernel_size=[3, 3], padding='same', activation=tf.nn.relu),
@@ -27,7 +49,9 @@ conv_layers = [
 
 ]
 
-bathsize =128
+bathsize =32
+
+
 def preprocess(x,y):
     x = 2 * tf.cast(x,dtype=tf.float32)/255. - 1.0
     y = tf.cast(y,dtype=tf.int32)
@@ -67,6 +91,8 @@ if __name__ == '__main__':
 
     opt = optimizers.Adam(lr=1e-4)
     val = conv_net.trainable_variables + fc_net.trainable_variables
+
+
     for epoch in range(50):
 
         for step , (x,y) in enumerate(db):

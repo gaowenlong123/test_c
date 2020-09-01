@@ -1,18 +1,18 @@
 import tensorflow as tf
 
 # 合并与分割
-# a = tf.ones([4,35,8])
-# b = tf.ones([2,35,8])
+# a = tf.ones([4,35,Con8])
+# b = tf.ones([2,35,Con8])
 #
 # c = tf.concat([a,b],axis=0) #非合并项要相等
 #
-# a = tf.ones([4,35,8])
-# b = tf.ones([4,35,8])
+# a = tf.ones([4,35,Con8])
+# b = tf.ones([4,35,Con8])
 # c = tf.stack([a,b],axis=1) #所有项要相等,创建一个新的维度
 # print(c)
 #
 #
-# e = tf.ones([2,4,35,8])
+# e = tf.ones([2,4,35,Con8])
 # print(len(tf.unstack(e,axis=2)))   #把该项全部打散
 #
 # print(len(tf.split(e, axis=3,num_or_size_splits=2))) #平均分为两个
@@ -84,7 +84,7 @@ b = tf.random.normal([4,10])
 #
 #
 #
-# b = tf.constant([[4,6,8],[9,4,7],[4,5,11]])
+# b = tf.constant([[4,6,Con8],[9,4,7],[4,5,11]])
 # print(b)
 #
 # res = tf.math.top_k(b,2) #只取最大的前两个
@@ -117,9 +117,9 @@ b = tf.random.normal([4,10])
 #裁剪
 # a = tf.range(10)
 # print(tf.maximum(a,2))
-# print(tf.minimum(a,8))
+# print(tf.minimum(a,Con8))
 #
-# print(tf.clip_by_value(a,2,8))
+# print(tf.clip_by_value(a,2,Con8))
 
 
 # a = a-5
