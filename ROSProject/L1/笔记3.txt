@@ -1,0 +1,70 @@
+1:topic
+	msg
+
+多对多
+
+常用命令
+	rostopic list 列出当前所有topic
+	rostopic info /topic_name  显示某个topic的属性信息
+	rostopic echo /topic_name  显示某个topic的内容
+	rostopic pub /topic_name  向某个topic发布内容
+
+	
+	rosmsg list 列出系统上所有msg
+	rosmsg show /msg_name 显示某个msg内容
+
+
+
+
+
+
+2:server 同步
+	srv
+
+多对一(client-server)
+
+
+常用命令
+	rosservice list 列出活跃的service
+	rosservice info service_name 显示某个service是属性信息
+	rosservice call service_name args  调用某个service
+
+	
+	rossrv list 列出系统所以srv
+	rossrv show srv_name 显示某个srv内容
+
+
+
+
+3:Parameter Server
+	存储各种参数的字典，可用命令行，launch文件和node(API)读写
+
+
+常用命令
+	rosparam list  列出当前所有参数
+	rosparam get param_key  显示某个参数的值
+	rosparam set param_key param_value 设置某个参数的值
+	rosparam dump file_name 保存参数到文件
+	rosparam load file_name 加载文件参数
+	rosparam delete param_key 删除参数
+
+在cpp,py中有对应的API接口
+在launch文件中用两张方式加载
+
+
+
+
+
+4:Action
+	类似server带有状态反馈的通信方式。通常用在长时间,可抢占的任务中	
+
+
+# Define the goal           目标动作
+uint32 dishwasher_id  
+---
+# Define the result         只回传一次结果
+uint32 total_dishes_cleaned
+---
+# Define a feedback message 实时回传进度
+float32 percent_complete
+

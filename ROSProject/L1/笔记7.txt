@@ -1,0 +1,41 @@
+slam :同步定位和建图
+
+1:Map
+	nav_msgs/OccupancyGrid.msg    地图消息(Topic)
+		resolution  米/像素　　（0.05,0.025）
+		width       像素宽
+		height      像素高
+		position    相对于map的位置
+		orientation 相对于map的朝向
+		data        实际每个地图的数值，就是cost，机器人走到这一格需要消耗的成本，数组长度 = width X height
+
+
+			
+2:Gampping Topic
+
+
+
+3:karto
+	
+
+
+4:cartographer
+
+
+
+
+5: 转换过程
+
+map_frame
+
+		slam发布这一段的转换，同时对下面的累积误差进行修正
+　　　　
+
+odom_frame
+
+		encoder :轮子编码器
+		visinal odom :视觉里程计
+		IMU     
+
+base_frame     
+得到地图到机器人base的转换，从而确定机器人在地图上的位置

@@ -1,0 +1,19 @@
+常用工具
+
+1:RViz
+	先打开仿真，打开RViz，将模型加载到RViz，监听实时数据进行可视化
+
+
+2:rqt
+	可视化工具，常用rqt_graph,rqt_plot,rqt_console	
+	rqt_graph:显示通信架构
+	rqt_plot:绘制曲线
+	rqt_console:查看日志
+
+
+2:rosbag
+	记录和回放数据流
+
+	rosbag record <topic_names> 记录某些topic到bag中
+	rosbag record -a            记录所有topic到bag中
+	rosbag play <bag_files>     回放bag

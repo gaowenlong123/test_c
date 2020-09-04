@@ -1,0 +1,27 @@
+1:roscore
+	master:节点管理器
+	rosout:日志输出
+	parameter server:参数服务器
+
+
+2:node
+	ROS的进程
+	pkg里的可执行文件运行的实例
+
+3:rosrun [pkg_name] [node_name]
+
+
+4:rosnode
+	rosnode list  列出当前运行的node信息
+	rosnode info [node_name] 显示某个node的详细信息
+	rosnode kill [node_name] 结束某个node
+
+5:roslaunch 启动master和多个node
+	roslaunch [pkg_name] [file_name.launch]
+
+
+
+
+
+
+

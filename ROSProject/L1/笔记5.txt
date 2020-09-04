@@ -1,0 +1,141 @@
+1:Client Library   提供ROS编程的库，例如建立node,发布消息，调用服务
+	
+	roscpp : 
+		ros::init() :解析传入的ROS参数，使用roscpp第一步需要用到的函数
+		ros::NodeHandle  :和topic,server,param等交互的公共接口。这是一个类，里面有一些成员函数，例如创建话题发布者，创建话题接受者，创建服务的client，创建服务的server等等
+		ros::master    :包含从master查询信息的函数。这是一个命名空间有一些常用的函数
+			check() 检查masters是否启动
+			getHost() 返回master所处的hostname
+			getNodes() 从master返回已知的node名称列表
+			getTopics() 返回所有正在发布的topic列表
+			getURI() 返回master的URI地址
+			geeport() 返回master的运行端口
+	
+		ros::this_node :包含查询这个进程(node)的函数。这是一个命名空间
+			getAdvertisedTopics() 返回本node发布的topic
+			getName() 返回当前node的名称
+			getNamespace() 返回当前node的命名空间
+			getSubscribedTopics() 返回当前node订阅的topic			
+			
+		ros::service   :包含查询服务的函数。这是一个命名空间
+			call() 调用一个RPC服务
+			createClient() 创建一个服务的client
+			exists() 确认服务可调用
+			waitForService() 等待服务，直到可以调用
+
+		ros::param     :包含查询参数服务器的函数，而不需要用到NodeHandle
+			ros::param::get("param1", parameter1)
+			nh.getParam("param2",parameter2)	 ros::NodeHandle::getParam()获取参数，作用同上	 	
+
+			ros::param::set("param4", parameter4)    设置参数
+			nh.setParam("param5",parameter5)
+
+			ros::param::has("param6")		同上也是两种
+			ros::param::del("param6")		同上也是两种
+			
+			在launch文件中也可以设置参数
+		
+		ros::names     :包含处理ROS图资源名称的函数 
+
+
+	rospy  : 
+		rospy-Node
+			init_node(name)  注册和初始化node
+			get_master()  获得master的句柄
+			is_shutdown() 返回是否关闭
+			on_shutdown(fn) 在node关闭时调用函数
+			get_node_uri()  返回节点的URI
+			get_name()   返回节点的全名
+			get_namespace() 返回本节点的名字空间
+
+		
+		rospy-Topic
+			get_published_topics()  返回正在被发布的所有topic名称和类型
+			wait_for_messgae()  等待指定topic的一个message
+		
+		rospy-Service
+			wait_for_service() 
+
+		rospy-Param
+			get_param_names()
+			set_param()
+			delete_param()
+			has_param()
+			search_param()
+
+		rospy-Time
+			Time类　时刻
+			　　now()          返回当前时刻的Time对象
+			　　get_rostime()　　返回当前时刻的Time对象
+			  get_time()     返回当前的时间
+			　　sleep()
+			
+			Rate类　循环
+			　　sleep()　　　　　　　　挂起，考虑上一次的rate.sleep()时间
+			　　remaining()    剩余sleep的时间
+			Duration类　时间
+			
+
+
+2:CmakeLists.txt
+	cmake_minimum_required(VERSION 2.8.3)  		#CMAKE版本
+	project(topic_demo)                             #项目名称
+
+	find_package(catkin REQUIRED COMPONENTS         #制定依赖
+	  message_generation
+	  roscpp
+	  rospy
+	  std_msgs
+	)
+
+
+	add_message_files(                             #添加自定义的msg
+	   FILES
+	   gps.msg
+
+	)
+
+
+	add_service_files(　　　　　　　　　　　　　　　　　　　　　　　　　　　　#添加自定义srv
+	   FILES
+	   Greeting.srv
+	)
+
+	add_action_files(                            #添加自定义action
+	   FILES
+	   Action1.action
+
+	)
+
+	generate_messages(                            #生成msg对应的头文件
+	  DEPENDENCIES
+	  std_msgs
+	)
+
+	catkin_package(                               #用于配置ROS和package配置文件和Cmake文件
+	  CATKIN_DEPENDS  
+	  roscpp 
+	  rospy 
+	  std_msgs 
+	  message_runtime
+	)
+
+  
+	include_directories(                          #指定c/c++的头文件路径
+	  include
+	  ${catkin_INCLUDE_DIRS}
+	)
+
+	add_executable(talker src/talker.cpp )       #生成可执行目标文件
+
+	add_dependencies(talker topic_demo_generate_messages_cpp)   #添加依赖
+	target_link_libraries(talker ${catkin_LIBRARIES})           #链接
+
+	
+
+package.xml
+	  <build_depend>std_msgs</build_depend>  编译时的依赖
+  	  <run_depend>roscpp</run_depend>　　　　　　　　运行时的依赖
+
+
+

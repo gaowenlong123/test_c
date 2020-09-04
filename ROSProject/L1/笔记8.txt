@@ -1,0 +1,45 @@
+Navigation
+
+1:Costmap
+	代价地图，栅格地图 用于路径规划
+		两张,　2维，多层
+		
+		static layer (map，静态不变)
+		
+		obstacle layer  (动态的通过传感器绘制的地图)
+
+		inflation layer  (膨胀)
+
+
+2:Move_base
+	全局规划，局部规划，处理异常行为
+
+	BaseLocalPlanner
+		base_local_planner
+		dwa_local_planner
+	
+	BaseGlobalPlanner
+		carrot_planner
+		navfn
+		global_planner
+
+	RecoveryBehavior
+		clear_costmap_recovery
+		rotate_recovery
+		move_slow_and_clear
+
+
+3:Map_Server 
+	直接发布地图，已经不需要再进行建图
+
+	rosrun map_server map_server my_map.yaml  启动map_server 发布地图
+	
+	rosrun map_server map_server [-f my_map]  保存地图
+
+
+4:AMCL
+	蒙特卡洛自适应定位
+		类似于slam,将里程计的误差进行弥补，然后输出定位信息
+
+
+	

@@ -1,0 +1,79 @@
+1:tf
+	两个frame之间进行通信
+		geometry/TransformStamped.msg
+
+
+	tf树:来维护机器人坐标之间的关系
+		tf/tfMessage.msg (复杂)
+		tf2_msgs/TFMessage.msg　　(geometry/TransformStamped[] transforms)
+
+
+	常见指令:
+		rosrun tf view_frames　　　根据当前的tf树创建一个pdf图
+		rosrun rqt_tf_tree rqt_tf_tree　　查看当前的tf树
+		rosrun tf tf_echo [reference_frame] [target_frame]   查看两个frame之间的变换关系
+
+
+	tf_cpp	
+		向量　　　　　　　　　　tf::Vector3
+		点                     tf::Point
+		四元数                 tf::Quaternion
+		3x3矩阵(旋转矩阵)      tf::Matrix3x3
+		位姿                   tf::Pose
+		变换                   tf::Transform
+		带时间戳的以上类型      tf::Stamped<T>
+		带时间戳的变换          tf::StampedTransform
+
+		tf::TransformBroadcaster类  （tf树的发布者）
+			sendTransform()
+
+		tf::TransformListenter类  （tf树的接受）
+			lookupTransform(目标坐标系，原坐标系，时刻，转换关系)
+			canTransform()
+			waitForTransform()
+	
+
+	tf_py
+		向量,点，四元数，矩阵都表示成类似数组的形式
+		Tuple,List,Numpy　Array 通用
+
+		tf.transformations 提供了基本的相互转换
+
+		tf::TransformBroadcaster类  （tf树的发布者）
+			sendTransform()
+			sendTransformMessage()
+		
+		tf::TransformListenter类  （tf树的接受）
+			lookupTransform(目标坐标系，原坐标系，时刻)
+			canTransform()
+			waitForTransform()		
+		
+
+
+
+
+2:urdf　统一机器人描述格式
+	link 
+		<inertial>   惯性属性
+	 		   <origin>    相对link的坐标
+			   <mass>　　　　  质量
+			   <inertial>  转动惯量
+		<visual>　　　　　视觉属性
+	 		   <origin>　　  相对link的坐标
+			   <geometry>  形状
+			   <material>  材质
+		<collision>　　碰撞属性
+	 		   <origin>　　  相对坐标
+			   <geometry>  形状
+		   
+	joint :链接两个link这件的关节
+		<joint>  
+	 		   <origin>      从父link到子link的变换
+			   <parent>　　　　  父link
+			   <child>       子link
+	 		   <axis>　　      关节轴
+			   <calibration>  视觉属性
+			   <dynamics>    动力学参数
+	 		   <limit>　　     关节限位
+
+
